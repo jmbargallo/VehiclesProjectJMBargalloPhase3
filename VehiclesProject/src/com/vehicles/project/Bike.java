@@ -9,8 +9,8 @@ public class Bike extends Vehicle {
 	}
 
 
-	public void addWheels(List<Wheel> frontWheel, List<Wheel> backWheel) {
-		this.wheels.add(frontWheel.get(0));
-		this.wheels.add(backWheel.get(0));
+	public void addWheels(Wheel frontWheel, Wheel backWheel) {
+		this.wheels.add(frontWheel);
+		this.wheels.add(backWheel);
 	}
 }
