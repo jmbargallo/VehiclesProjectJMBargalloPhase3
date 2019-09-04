@@ -9,47 +9,33 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         UserVehicleInformation userVehicle = new UserVehicleInformation();
+        List<Wheel> frontWheels = new ArrayList<>();
+        List<Wheel> backWheels = new ArrayList<>();
 
-        //ask user if he/she wants to enter the information of a bike or a car.
+        //ask user if he/she wants to enter the information for a bike or a car.
 
-        if (userVehicle.askVehicleType() == "car") {
-            //ask user for the information of her or his car plate, car brand and color of the car.
-            Car car = new Car(userVehicle.askPlateToUser(), userVehicle.askBrandToUser(), userVehicle.askColorToUser());
+        switch (userVehicle.askVehicleType()) {
 
-            Wheel frontWheel = userVehicle.askFrontWheel();
-            Wheel backWheel = userVehicle.askBackWheel();
+            case "car":
+                Car car = new Car(userVehicle.askPlateToUser(), userVehicle.askBrandToUser(), userVehicle.askColorToUser());
 
-            List<Wheel> frontWheels = new ArrayList<>();
-            frontWheels.add(frontWheel);
-            frontWheels.add(frontWheel);
+                frontWheels = userVehicle.askWheels("front");
+                backWheels = userVehicle.askWheels("back");
 
-            List<Wheel> backWheels = new ArrayList<>();
-            backWheels.add(backWheel);
-            backWheels.add(backWheel);
-
-            try {
                 car.addWheels(frontWheels, backWheels);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                userVehicle.printCarInfo(car);
+                break;
 
-            System.out.println(car.getPlate() + " " + car.getBrand() + " " + car.getColor() + " " + car.getWheels());
-        }else{
-            Bike bike = new Bike ("No plate",userVehicle.askBrandToUser(), userVehicle.askColorToUser());
-            Wheel frontWheel = userVehicle.askFrontWheel();
-            Wheel backWheel = userVehicle.askBackWheel();
+            case "bike":
+                Bike bike = new Bike("No plate", userVehicle.askBrandToUser(), userVehicle.askColorToUser());
+                //in this case we use askWheel (only 1 wheel), it's another method.
+                frontWheels = userVehicle.askWheel("front");
+                backWheels = userVehicle.askWheel("back");
 
-            List<Wheel> frontWheels = new ArrayList<>();
-            frontWheels.add(frontWheel);
+                bike.addWheels(frontWheels.get(0), backWheels.get(0));
+                userVehicle.printBikeInfo(bike);
 
-            List<Wheel> backWheels = new ArrayList<>();
-            backWheels.add(backWheel);
-
-            try {
-                bike.addWheels(frontWheels, backWheels);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                break;
         }
     }
 }
