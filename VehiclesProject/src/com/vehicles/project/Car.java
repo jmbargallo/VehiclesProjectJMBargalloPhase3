@@ -12,35 +12,6 @@ public class Car extends Vehicle {
 		super();
 	}
 
-	@Override
-	public String getBrand() {
-		return super.getBrand();
-	}
-
-	@Override
-	public void setBrand(String brand) {
-		super.setBrand(brand);
-	}
-
-	@Override
-	public String getColor() {
-		return super.getColor();
-	}
-
-	@Override
-	public void setColor(String color) {
-		super.setColor(color);
-	}
-
-	@Override
-	public String getPlate() {
-		return super.getPlate();
-	}
-
-	@Override
-	public void setPlate(String plate) {
-		super.setPlate(plate);
-	}
 
 	public void addWheels(List<Wheel> frontWheels, List<Wheel> backWheels) throws Exception {
 		addTwoWheels(frontWheels);
@@ -53,14 +24,14 @@ public class Car extends Vehicle {
 
 		Wheel rightWheel = wheels.get(0);
 		Wheel leftWheel = wheels.get(1);
-
-		if (!rightWheel.equals(leftWheel))
-			throw new Exception();
-
+		try {
+			if (!rightWheel.equals(leftWheel))
+					//(rightWheel.getBrand().equals(leftWheel.getBrand()) && (rightWheel.getDiameter() == leftWheel.getDiameter()))
+				throw new Exception("The right and the left wheels are not equals");
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 		this.wheels.add(leftWheel);
 		this.wheels.add(rightWheel);
 	}
-
-
-
 }
